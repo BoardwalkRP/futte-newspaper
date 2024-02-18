@@ -1,5 +1,5 @@
 export const Config = {
-	newspaperTitle: 'Los Santos Newspaper',
+	newspaperTitle: 'Los Santos Daily Times',
 	tabs: {
 		showPrisonSentences: true,
 		showCityNews: false,
@@ -54,11 +54,16 @@ export const Config = {
 		tabs: {
 			newspaper: 'Newspaper',
 			prisonSentences: 'Prison sentences',
+			ads: 'Advertisements',
 			reporterActions: 'Reporter actions',
 		},
 		prisonSentences: {
 			title: 'Prison sentences',
 			noSentencesAvailable: 'No sentences available',
+		},
+		ads: {
+			title: 'Advertisements',
+			noAdsAvailable: 'There are no current advertisements',
 		},
 		reporterActions: {
 			title: 'Reporter actions',

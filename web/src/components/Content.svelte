@@ -14,7 +14,9 @@
 	import type { Story } from '../interfaces/story';
 	import { Config } from '../../config';
 	import PrisonSentences from '../pages/PrisonSentences.svelte';
+	import Ads from '../pages/Ads.svelte';
 	import type { ISentence } from '../interfaces/ISentence';
+	import type { IAd } from '../interfaces/IAd';
 
 	let value = 0;
 
@@ -23,6 +25,7 @@
 	export let reporterOnDuty: boolean;
 	export let reporterLevel: number;
 	export let sentences: Array<ISentence>;
+	export let ads: Array<IAd>;
 	export let playerName: string;
 </script>
 
@@ -35,6 +38,7 @@
 				{#if Config.tabs.showPrisonSentences}<Tab
 						>{Config.text.tabs.prisonSentences}</Tab
 					>{/if}
+				<Tab>{Config.text.tabs.ads}</Tab>
 				{#if isReporter && reporterOnDuty}<Tab
 						><Icon path={mdiStar} /><span class="ml-2"
 							>{Config.text.tabs.reporterActions}</span
@@ -54,6 +58,9 @@
 			<PrisonSentences {sentences} />
 		</WindowItem>
 	{/if}
+	<WindowItem>
+		<Ads {ads} />
+	</WindowItem>
 	{#if Config.tabs.showCityNews}
 		<WindowItem>
 			<!-- Might be implemented of requested -->

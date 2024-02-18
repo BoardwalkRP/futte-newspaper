@@ -7,12 +7,14 @@
 	import type { INewspaperData } from './interfaces/INewspaperData';
 	import type { ISentence } from './interfaces/ISentence';
 	import type { Story } from './interfaces/story';
+	import type { IAd } from './interfaces/IAd';
 
 	let stories: Array<Story>;
 	let reporterLevel: number;
 	let reporterOnDuty: boolean;
 	let isReporter: boolean;
 	let sentences: Array<ISentence>;
+	let ads: Array<IAd>;
 	let playerName: string;
 
 	window.addEventListener('message', (event) => {
@@ -35,6 +37,7 @@
 
 		stories = data.stories.length ? data.stories : [placeholderStory];
 		sentences = data.sentences.length ? data.sentences : [];
+		ads = data.ads.length ? data.ads : [];
 
 		// Show the newspaper GUI
 		visibility.set(true);
@@ -55,6 +58,7 @@
 					{reporterLevel}
 					{reporterOnDuty}
 					{sentences}
+					{ads}
 					{playerName}
 				/>
 			</div>
@@ -63,12 +67,19 @@
 </main>
 
 <style lang="scss">
+	@font-face {
+		font-family: 'Old Newspaper Types';
+		src: url('../OldNewspaperTypes.ttf') format('truetype');
+	}
+
+	:global(*) {
+		font-family: 'Old Newspaper Types', Tahoma, Geneva, Verdana, sans-serif !important;
+	}
 	.container {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		display: flex;
 		flex-direction: column;
 		border-radius: 5px;

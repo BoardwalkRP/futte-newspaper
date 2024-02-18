@@ -1,27 +1,26 @@
 -- CUSTOM CODE
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local newsstands = {"prop_news_disp_02a_s", "prop_news_disp_02c", "prop_news_disp_05a", "prop_news_disp_02e",
-                   "prop_news_disp_03c", "prop_news_disp_06a", "prop_news_disp_02a", "prop_news_disp_02d",
-                   "prop_news_disp_02b", "prop_news_disp_01a", "prop_news_disp_03a"}
+local newsstands = { "prop_news_disp_02a_s", "prop_news_disp_02c", "prop_news_disp_05a", "prop_news_disp_02e",
+    "prop_news_disp_03c", "prop_news_disp_06a", "prop_news_disp_02a", "prop_news_disp_02d",
+    "prop_news_disp_02b", "prop_news_disp_01a", "prop_news_disp_03a" }
 
-local newspaper = CreateObject(GetHashKey("prop_cliff_paper"), 0, 0, 0, true, true, true)
+local newspaper = CreateObject(joaat("prop_cliff_paper"), 0, 0, 0, true, true, true)
 
 local function AddItemToNewsStand(storyType, paper, paperIcon, stands)
     exports['qb-target']:AddTargetModel(stands, {
-        options = {{
+        options = { {
             label = paper,
             icon = paperIcon,
             action = function(entity)
-
                 if IsPedAPlayer(entity) then
                     return false
                 end
 
                 TriggerServerEvent('newspaper:buy', storyType)
-                TriggerEvent('animations:client:EmoteCommandStart', {"pickup"})
+                exports['rpemotes']:EmoteCommandStart('pickup')
             end
-        }},
+        } },
         distance = 1.5
     })
 end
@@ -32,10 +31,11 @@ RegisterNetEvent('newspaper:client:openNewspaper', function()
     RequestAnimDict("missfam4")
 
     QBCore.Functions.TriggerCallback('newspaper:server:getStories',
-        function(news, jail, isReporter, reporterLevel, reporterOnDuty, playerName)
+        function(news, jail, ads, isReporter, reporterLevel, reporterOnDuty, playerName)
             SendNUIMessage({
                 stories = news,
                 sentences = jail,
+                ads = ads,
                 isReporter = isReporter,
                 reporterLevel = reporterLevel,
                 reporterOnDuty = reporterOnDuty,
@@ -73,4 +73,3 @@ RegisterNUICallback('newspaper:client:closeNewspaper', function(_, cb)
     Wait(200)
     DeleteObject(newspaper)
 end)
-
